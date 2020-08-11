@@ -1,0 +1,1 @@
+bazel run "//services/hera:image-push"
