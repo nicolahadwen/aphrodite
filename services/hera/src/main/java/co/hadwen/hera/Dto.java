@@ -7,7 +7,7 @@ import com.google.gson.GsonBuilder;
  * Dto for Apis
  */
 public abstract class Dto {
-    protected static final Gson GSON = new GsonBuilder()
+    private static final Gson GSON = new GsonBuilder()
             .serializeNulls()
             .create();
 
