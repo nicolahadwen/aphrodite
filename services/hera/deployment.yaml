@@ -17,8 +17,8 @@ spec:
         tier: frontend-web
     spec:
       containers:
-        - image: hadwen/hera:0.0.0
-          name: hera
+        - name: hera
+          image: hadwen/hera:0.0.0
           imagePullPolicy: "Always"
           ports:
             - containerPort: 8080
@@ -30,7 +30,7 @@ spec:
               memory: "100Mi"
           args: ["--vm", "1", "--vm-bytes", "150M", "--vm-hang", "1"]
           env:
-            - name: UI_ORIGIN_DOMAIN
+            - name: WEB_UI_ORIGIN
               valueFrom:
                 secretKeyRef:
                   name: ui-origin
@@ -38,11 +38,23 @@ spec:
           securityContext:
             runAsUser: 2  # non-root user
             allowPrivilegeEscalation: false
+        - name: cloud-sql-proxy
+          # It is recommended to use the latest version of the Cloud SQL proxy
+          # Make sure to update on a regular schedule!
+          image: gcr.io/cloudsql-docker/gce-proxy:1.17
+          command:
+            - "/cloud_sql_proxy"
+            - "-instances=hadwen:us-central1:product-core=tcp:3306"
+            - "-credential_file=/secrets/service_account.json"
+          securityContext:
+            # The default Cloud SQL proxy image runs as the
+            # "nonroot" user and group (uid: 65532) by default.
+            runAsNonRoot: true
           volumeMounts:
-            - name: cloudsql-instance-credentials
-              mountPath: /secrets/cloudsql
+            - name: cloudsql-instance-credentials-volume
+              mountPath: /secrets
               readOnly: true
       volumes:
-        - name: cloudsql-instance-credentials
+        - name: cloudsql-instance-credentials-volume
           secret:
             secretName: cloudsql-instance-credentials

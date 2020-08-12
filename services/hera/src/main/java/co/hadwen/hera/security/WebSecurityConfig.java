@@ -22,6 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         CorsConfiguration corsConfig = new CorsConfiguration();
         // todo: make env variable
+        System.out.printf("Origin: %s\n", System.getenv("WEB_UI_ORIGIN"));
         corsConfig.setAllowedOrigins(Collections.singletonList("http://localhost:8081"));
         corsConfig.setAllowedMethods(
                 Arrays.asList(
