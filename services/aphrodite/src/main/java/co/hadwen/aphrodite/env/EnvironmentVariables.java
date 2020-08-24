@@ -7,7 +7,8 @@ import lombok.Getter;
 public enum EnvironmentVariables implements EnvironmentVariable {
     DB_HOST("DB_HOST"),
     DB_USER_NAME("DB_USER_NAME"),
-    DB_PASSWORD("DB_PASSWORD");
+    DB_PASSWORD("DB_PASSWORD"),
+    ENV("ENV");
 
     private final String key;
 

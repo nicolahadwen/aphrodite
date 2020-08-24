@@ -1,0 +1,1 @@
+bazel run "//services/aphrodite:image-push"

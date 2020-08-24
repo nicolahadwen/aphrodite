@@ -1,0 +1,98 @@
+package(default_visibility = ["//visibility:private"])
+
+java_library(
+   name = "aphrodite",
+   srcs = glob([
+       "**/src/main/**/*.java",
+   ]),
+   deps = [
+       "//:lombok",
+       "//java/libraries/environment",
+       "//java/system/user/store",
+       "@maven//:com_google_code_gson_gson",
+       "@maven//:org_apache_commons_commons_lang3",
+       "@maven//:org_javassist_javassist",
+       "@maven//:javax_servlet_javax_servlet_api",
+       "@maven//:org_projectlombok_lombok",
+       "@maven//:org_springframework_boot_spring_boot",
+       "@maven//:org_springframework_boot_spring_boot_starter_web",
+       "@maven//:org_springframework_boot_spring_boot_autoconfigure",
+       "@maven//:org_springframework_security_spring_security_config",
+       "@maven//:org_springframework_security_oauth_spring_security_oauth2",
+       "@maven//:org_springframework_spring_context",
+       "@maven//:org_springframework_spring_web",
+       "@maven//:org_springframework_spring_webmvc",
+   ]
+)
+
+load("//:junit5.bzl", "java_junit5_test")
+
+# Use java_test after bazel officially support junit5
+java_junit5_test(
+    name = "aphrodite-test",
+    srcs = glob([
+            "**/src/test/java/**/*.java",
+    ]),
+    test_package = "co.hadwen",
+    deps = [
+       "@maven//:org_springframework_spring_context",
+       "@maven//:org_springframework_spring_web",
+       "@maven_test//:org_assertj_assertj_core",
+       "@maven_test//:org_mockito_mockito_core",
+    ],
+)
+
+# Java image
+load("@io_bazel_rules_docker//java:image.bzl", "java_image")
+load("@io_bazel_rules_docker//container:container.bzl", "container_image")
+load("@io_bazel_rules_docker//container:container.bzl", "container_push")
+
+java_image(
+    name = "aphrodite_service_image",
+    # Put these runfiles into their own layer.
+    main_class = "co.hadwen.aphrodite.Application",
+    # the source file we need to compile
+    srcs = ["src/main/java/co/hadwen/aphrodite/Application.java"],
+    deps = [
+           "aphrodite",
+           "//:lombok",
+           "@maven//:com_google_code_gson_gson",
+           "@maven//:org_apache_commons_commons_lang3",
+           "@maven//:org_javassist_javassist",
+           "@maven//:javax_servlet_javax_servlet_api",
+           "@maven//:org_projectlombok_lombok",
+           "@maven//:org_springframework_boot_spring_boot",
+           "@maven//:org_springframework_boot_spring_boot_starter_web",
+           "@maven//:org_springframework_boot_spring_boot_autoconfigure",
+           "@maven//:org_springframework_security_spring_security_config",
+           "@maven//:org_springframework_security_oauth_spring_security_oauth2",
+           "@maven//:org_springframework_spring_context",
+           "@maven//:org_springframework_spring_web",
+           "@maven//:org_springframework_spring_webmvc"
+       ]
+)
+
+# Container image
+container_image(
+    # the name of this target we call in the `k8s_deploy` rule below
+    name = "aphrodite_service_container_image",
+    # the base image for this image, which is a Bazel target defined above
+    # Bazel will call the above target first, and use its output as the
+    # base image for this image
+    base = ":aphrodite_service_image",
+    # expose the 8080 port, which is what our Java app runs on
+    ports = ["8080"],
+    # The directory in which to expand the base image files
+    directory = "/app",
+    # Initial working directory when running the image
+    workdir = "/app",
+)
+
+container_push(
+    name = "image-push",
+    format = "Docker",
+    image = ":aphrodite_service_container_image",
+    registry = "577184258671.dkr.ecr.us-east-2.amazonaws.com",
+    repository = "aphrodite",
+    tag="0.0.004"
+)
