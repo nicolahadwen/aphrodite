@@ -1,0 +1,22 @@
+package(default_visibility = ["//visibility:private"])
+
+filegroup(
+    name = "hibernate-resources",
+    srcs = ["resources/hibernate.cfg.xml"],
+)
+java_library(
+   name = "hibernate",
+   resources=["hibernate-resources"],
+   srcs = glob([
+       "*.java",
+   ]),
+   deps = [
+       "//:lombok",
+       "//java/libraries/environment",
+       "@maven//:org_hibernate_hibernate_core",
+       "@maven//:mysql_mysql_connector_java"
+   ],
+   visibility = [
+       "//java/system/user/store:__subpackages__",
+   ]
+)

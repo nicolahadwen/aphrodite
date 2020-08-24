@@ -1,0 +1,15 @@
+package(default_visibility = ["//visibility:private"])
+
+java_library(
+   name = "validatable",
+   srcs = glob([
+       "*.java",
+   ]),
+   deps = [
+       "//:lombok",
+       "//java/libraries/validation",
+   ],
+   visibility = [
+       "//visibility:public"
+   ]
+)

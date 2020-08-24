@@ -1,0 +1,23 @@
+package(default_visibility = ["//visibility:private"])
+
+java_library(
+   name = "store",
+   srcs = glob([
+       "*.java",
+   ]),
+   deps = [
+       "//:lombok",
+       "//java/libraries/hibernate",
+       "//java/libraries/id",
+       "//java/libraries/validation",
+       "//java/libraries/func/validatable",
+       "@maven//:org_hibernate_hibernate_annotations",
+       "@maven//:org_hibernate_hibernate_core",
+       "@maven//:javax_persistence_javax_persistence_api"
+   ],
+   visibility = [
+       "//services/aphrodite:__subpackages__"
+   ]
+)
+
+

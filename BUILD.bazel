@@ -11,13 +11,6 @@ java_plugin(
 )
 
 java_library(
-    name = "starter-backend",
-    srcs = glob([
-        "**/src/**/*.java"
-    ]),
-)
-
-java_library(
     name = "lombok",
     exported_plugins = [":lombok_plugin"],
     neverlink = 1,

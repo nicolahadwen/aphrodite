@@ -16,6 +16,11 @@ load("@bazel_tools//tools/build_defs/repo:maven_rules.bzl", "maven_dependency_pl
 # spring versions
 SPRING_VERSION = "5.1.5.RELEASE"
 SPRING_BOOT_VERSION = "2.2.2.RELEASE"
+SPRING_BOOT_JPA_VERSION = "2.3.3.RELEASE"
+SPRING_ORM_VERSION = "5.2.8.RELEASE"
+HIBERNATE_VERSION = "5.4.20.Final"
+JAVAX_PERSISTENCE_VERSION = "2.2"
+QUERY_DSL_VERSION = "4.0.0";
 #gson version
 GSON_VERSION = "2.8.6"
 
@@ -26,6 +31,8 @@ maven_install(
         # javax
         "javax.servlet:javax.servlet-api:3.1.0",
         "javax.servlet:servlet-api:2.5",
+        "javax.inject:javax.inject:1",
+        "javax.persistence:javax.persistence-api:%s" % JAVAX_PERSISTENCE_VERSION,
         #apache commons
         "org.apache.commons:commons-lang3:3.9",
         # java assist
@@ -44,7 +51,14 @@ maven_install(
         "org.springframework.boot:spring-boot-starter-web:%s" % SPRING_BOOT_VERSION,
         "org.springframework.security.oauth:spring-security-oauth2:%s" % SPRING_BOOT_VERSION,
         #gson
-        "com.google.code.gson:gson:%s" % GSON_VERSION
+        "com.google.code.gson:gson:%s" % GSON_VERSION,
+        #hibernate
+        "org.hibernate:hibernate-core:%s" % HIBERNATE_VERSION,
+        "org.hibernate:hibernate-annotations:3.5.6-Final",
+        # mysql
+        "mysql:mysql-connector-java:8.0.17",
+        # slf4j
+        "org.slf4j:slf4j-log4j12:1.6.1"
     ],
     repositories = [
             "https://jcenter.bintray.com/",

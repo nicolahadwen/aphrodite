@@ -1,0 +1,15 @@
+package(default_visibility = ["//visibility:private"])
+
+java_library(
+   name = "environment",
+   srcs = glob([
+       "*.java",
+   ]),
+   deps = [
+       "//:lombok"
+   ],
+   visibility = [
+       "//java/libraries/hibernate:__subpackages__",
+       "//services/aphrodite:__subpackages__",
+   ]
+)

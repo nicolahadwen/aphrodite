@@ -1,0 +1,15 @@
+package(default_visibility = ["//visibility:private"])
+
+java_library(
+   name = "sql",
+   srcs = glob([
+       "*.java",
+   ]),
+   deps = [
+       "//:lombok",
+       "//java/libraries/environment",
+       "@maven//:com_querydsl_querydsl_sql",
+       "@maven//:javax_inject_javax_inject",
+       "@maven//:org_hibernate_hibernate_core",
+   ]
+)
