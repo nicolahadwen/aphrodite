@@ -1,12 +1,13 @@
 package system.user.store;
 
+import libraries.hibernate.MySqlHibernateConfig;
 import lombok.AllArgsConstructor;
 
 import java.util.Collections;
 import java.util.Set;
 
 @AllArgsConstructor
-public class HibernateConfig implements libraries.hibernate.HibernateConfig {
+public class HibernateConfig extends MySqlHibernateConfig {
     private final String connectionUrl;
     private final String dbUser;
     private final String dbPassword;

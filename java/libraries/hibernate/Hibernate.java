@@ -46,9 +46,9 @@ public class Hibernate {
         cfg.setProperty("hibernate.connection.url", config.getConnectionUrl());
         cfg.setProperty("hibernate.connection.username", config.getDbUser());
         cfg.setProperty("hibernate.connection.password", config.getDbPassword());
-        cfg.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
-        cfg.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-        cfg.setProperty("hibernate.current_session_context_class", "thread");
+        cfg.setProperty("hibernate.connection.driver_class", config.getDriverClass());
+        cfg.setProperty("hibernate.dialect", config.getDialect());
+        cfg.setProperty("hibernate.current_session_context_class", config.getCurrentSessionContextClass());
         config.getAnnotatedClasses().forEach(cfg::addAnnotatedClass);
         return cfg.buildSessionFactory();
     }

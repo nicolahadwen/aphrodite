@@ -8,4 +8,7 @@ public interface HibernateConfig {
     String getConnectionUrl();
     String getDbUser();
     String getDbPassword();
+    String getDialect();
+    String getCurrentSessionContextClass();
+    String getDriverClass();
 }
