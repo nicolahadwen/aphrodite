@@ -32,6 +32,7 @@ public class UserController {
             @PathVariable(name = "userId") String userId) throws Exception {
         Optional<PlatformEntity> platformEntity = platformStore.get(platformId);
         if (!platformEntity.isPresent()) {
+
             return ResponseEntity.notFound().build();
         }
         return userStore.get(userId, platformEntity.get())

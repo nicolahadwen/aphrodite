@@ -25,6 +25,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+@NoArgsConstructor
 @Entity
 @Table(
         name = "platform_user",
