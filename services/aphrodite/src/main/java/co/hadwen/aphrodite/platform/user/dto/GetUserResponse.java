@@ -1,4 +1,4 @@
-package co.hadwen.aphrodite.user.dto;
+package co.hadwen.aphrodite.platform.user.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -7,8 +7,6 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false)
 @ToString
 @Data
-public class User {
+public class GetUserResponse {
     private final String userId;
-    private final String username;
-    private final String email;
 }

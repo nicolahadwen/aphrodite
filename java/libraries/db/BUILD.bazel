@@ -1,0 +1,9 @@
+java_library(
+   name = "db",
+   srcs = glob([
+       "*.java",
+   ]),
+   deps = [
+       "//:lombok",
+   ]
+)

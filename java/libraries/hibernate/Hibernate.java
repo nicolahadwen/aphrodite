@@ -43,12 +43,16 @@ public class Hibernate {
 
     private SessionFactory createSessionFactory() {
         Configuration cfg = new Configuration();
+        System.out.printf("config.getConnectionUrl(): %s\n", config.getConnectionUrl());
         cfg.setProperty("hibernate.connection.url", config.getConnectionUrl());
         cfg.setProperty("hibernate.connection.username", config.getDbUser());
         cfg.setProperty("hibernate.connection.password", config.getDbPassword());
         cfg.setProperty("hibernate.connection.driver_class", config.getDriverClass());
         cfg.setProperty("hibernate.dialect", config.getDialect());
         cfg.setProperty("hibernate.current_session_context_class", config.getCurrentSessionContextClass());
+        if (config.allowSchemaUpdates()) {
+            cfg.setProperty("hibernate.hbm2ddl.auto", "update");
+        }
         config.getAnnotatedClasses().forEach(cfg::addAnnotatedClass);
         return cfg.buildSessionFactory();
     }

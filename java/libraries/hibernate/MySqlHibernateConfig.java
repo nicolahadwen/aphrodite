@@ -4,7 +4,7 @@ public abstract class MySqlHibernateConfig implements HibernateConfig {
 
     @Override
     public String getDialect() {
-        return "org.hibernate.dialect.MySQLDialect";
+        return "org.hibernate.dialect.MySQL8Dialect";
     }
 
     @Override

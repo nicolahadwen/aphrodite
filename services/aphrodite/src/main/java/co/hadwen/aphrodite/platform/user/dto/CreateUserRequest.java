@@ -1,4 +1,4 @@
-package co.hadwen.aphrodite.user.dto;
+package co.hadwen.aphrodite.platform.user.dto;
 
 import co.hadwen.aphrodite.Dto;
 import lombok.Data;
@@ -9,7 +9,5 @@ import lombok.ToString;
 @ToString
 @Data
 public class CreateUserRequest extends Dto {
-    private String username;
-    private String email;
-    private String password;
+    private String userId;
 }

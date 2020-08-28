@@ -8,7 +8,8 @@ java_library(
    deps = [
        "//:lombok",
        "//java/libraries/environment",
-       "//java/system/user/store",
+       "//java/libraries/id",
+       "//java/libraries/hibernate",
        "@maven//:com_google_code_gson_gson",
        "@maven//:org_apache_commons_commons_lang3",
        "@maven//:org_javassist_javassist",
@@ -22,6 +23,9 @@ java_library(
        "@maven//:org_springframework_spring_context",
        "@maven//:org_springframework_spring_web",
        "@maven//:org_springframework_spring_webmvc",
+       "@maven//:org_hibernate_hibernate_annotations",
+       "@maven//:org_hibernate_hibernate_core",
+       "@maven//:javax_persistence_javax_persistence_api"
    ]
 )
 

@@ -1,13 +1,11 @@
 package co.hadwen.aphrodite;
 
-import co.hadwen.aphrodite.env.EnvConfig;
-import co.hadwen.aphrodite.user.UserConfig;
-import co.hadwen.aphrodite.user.UserController;
+import co.hadwen.aphrodite.platform.PlatformConfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Import({
-        UserConfig.class
+        PlatformConfig.class
 })
 @Configuration
 public class ControllerConfig {

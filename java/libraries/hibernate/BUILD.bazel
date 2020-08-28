@@ -17,6 +17,6 @@ java_library(
        "@maven//:mysql_mysql_connector_java"
    ],
    visibility = [
-       "//java/system/user/store:__subpackages__",
+       "//services/aphrodite:__subpackages__",
    ]
 )

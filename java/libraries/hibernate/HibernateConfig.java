@@ -11,4 +11,5 @@ public interface HibernateConfig {
     String getDialect();
     String getCurrentSessionContextClass();
     String getDriverClass();
+    boolean allowSchemaUpdates();
 }

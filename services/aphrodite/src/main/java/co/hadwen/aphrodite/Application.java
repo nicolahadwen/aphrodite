@@ -2,6 +2,7 @@ package co.hadwen.aphrodite;
 
 import co.hadwen.aphrodite.env.EnvConfig;
 import co.hadwen.aphrodite.healthcheck.HealthCheckConfig;
+import co.hadwen.aphrodite.hibernate.HibernateConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -10,7 +11,8 @@ import org.springframework.context.annotation.Import;
 @Import({
         ControllerConfig.class,
         EnvConfig.class,
-        HealthCheckConfig.class
+        HealthCheckConfig.class,
+        HibernateConfig.class
 })
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer {
