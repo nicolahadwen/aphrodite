@@ -15,7 +15,7 @@ load("@bazel_tools//tools/build_defs/repo:maven_rules.bzl", "maven_dependency_pl
 
 # spring versions
 SPRING_VERSION = "5.1.5.RELEASE"
-SPRING_BOOT_VERSION = "2.2.2.RELEASE"
+SPRING_BOOT_VERSION = "2.2.5.RELEASE"
 SPRING_BOOT_JPA_VERSION = "2.3.3.RELEASE"
 SPRING_ORM_VERSION = "5.2.8.RELEASE"
 HIBERNATE_VERSION = "5.4.20.Final"
@@ -29,7 +29,6 @@ maven_install(
     name = "maven",
     artifacts = [
         # javax
-        "javax.servlet:javax.servlet-api:3.1.0",
         "javax.servlet:servlet-api:2.5",
         "javax.inject:javax.inject:1",
         "javax.persistence:javax.persistence-api:%s" % JAVAX_PERSISTENCE_VERSION,
@@ -44,12 +43,21 @@ maven_install(
         "org.springframework.boot:spring-boot-starter-security:%s" % SPRING_BOOT_VERSION,
         # spring
         "org.springframework:spring-context:%s" % SPRING_VERSION,
+        "org.springframework:spring-beans:%s"  % SPRING_VERSION,
+        "org.springframework.security:spring-security-core:5.3.2.RELEASE",
+        "org.springframework.security:spring-security-web:5.3.2.RELEASE",
         "org.springframework:spring-web:%s" % SPRING_VERSION,
         "org.springframework:spring-webmvc:%s" % SPRING_VERSION,
         "org.springframework.security:spring-security-config:%s" % SPRING_VERSION,
         "org.springframework.boot:spring-boot:%s" % SPRING_BOOT_VERSION,
         "org.springframework.boot:spring-boot-starter-web:%s" % SPRING_BOOT_VERSION,
         "org.springframework.security.oauth:spring-security-oauth2:%s" % SPRING_BOOT_VERSION,
+        "org.springframework.boot:spring-boot-starter-oauth2-client:%s" % SPRING_BOOT_VERSION,
+        "org.springframework.boot:spring-boot-starter-oauth2-resource-server:%s" % SPRING_BOOT_VERSION,
+        "org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:%s" % SPRING_BOOT_VERSION,
+        "org.springframework.boot:spring-boot-starter-tomcat:2.0.7.RELEASE",
+        # jwt
+        "com.nimbusds:nimbus-jose-jwt:4.23",
         #gson
         "com.google.code.gson:gson:%s" % GSON_VERSION,
         #hibernate

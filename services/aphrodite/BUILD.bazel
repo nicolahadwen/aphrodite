@@ -5,6 +5,9 @@ java_library(
    srcs = glob([
        "**/src/main/**/*.java",
    ]),
+   resources = [
+        "aphrodite-resources"
+   ],
    deps = [
        "//:lombok",
        "//java/libraries/environment",
@@ -13,20 +16,32 @@ java_library(
        "@maven//:com_google_code_gson_gson",
        "@maven//:org_apache_commons_commons_lang3",
        "@maven//:org_javassist_javassist",
-       "@maven//:javax_servlet_javax_servlet_api",
        "@maven//:org_projectlombok_lombok",
+       "@maven//:org_springframework_security_spring_security_core",
+       "@maven//:org_springframework_security_spring_security_web",
        "@maven//:org_springframework_boot_spring_boot",
        "@maven//:org_springframework_boot_spring_boot_starter_web",
        "@maven//:org_springframework_boot_spring_boot_autoconfigure",
+       "@maven//:org_springframework_boot_spring_boot_starter_security",
+       "@maven//:org_springframework_boot_spring_boot_starter_tomcat",
        "@maven//:org_springframework_security_spring_security_config",
-       "@maven//:org_springframework_security_oauth_spring_security_oauth2",
+       "@maven//:org_apache_tomcat_embed_tomcat_embed_core",
+       "@maven//:org_springframework_spring_beans",
        "@maven//:org_springframework_spring_context",
        "@maven//:org_springframework_spring_web",
        "@maven//:org_springframework_spring_webmvc",
        "@maven//:org_hibernate_hibernate_annotations",
        "@maven//:org_hibernate_hibernate_core",
-       "@maven//:javax_persistence_javax_persistence_api"
+       "@maven//:javax_persistence_javax_persistence_api",
+       "@maven//:com_nimbusds_nimbus_jose_jwt"
    ]
+)
+
+filegroup(
+    name = "aphrodite-resources",
+    srcs = glob([
+        "src/main/resources/**",
+    ]),
 )
 
 load("//:junit5.bzl", "java_junit5_test")
@@ -63,16 +78,12 @@ java_image(
            "@maven//:com_google_code_gson_gson",
            "@maven//:org_apache_commons_commons_lang3",
            "@maven//:org_javassist_javassist",
-           "@maven//:javax_servlet_javax_servlet_api",
            "@maven//:org_projectlombok_lombok",
            "@maven//:org_springframework_boot_spring_boot",
            "@maven//:org_springframework_boot_spring_boot_starter_web",
            "@maven//:org_springframework_boot_spring_boot_autoconfigure",
-           "@maven//:org_springframework_security_spring_security_config",
-           "@maven//:org_springframework_security_oauth_spring_security_oauth2",
            "@maven//:org_springframework_spring_context",
-           "@maven//:org_springframework_spring_web",
-           "@maven//:org_springframework_spring_webmvc"
+           "@maven//:org_springframework_security_spring_security_config",
        ]
 )
 
@@ -98,5 +109,5 @@ container_push(
     image = ":aphrodite_service_container_image",
     registry = "577184258671.dkr.ecr.us-east-2.amazonaws.com",
     repository = "aphrodite",
-    tag="0.0.005"
+    tag="0.0.006"
 )

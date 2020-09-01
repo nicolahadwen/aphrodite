@@ -1,5 +1,6 @@
 package co.hadwen.aphrodite.platform.user;
 
+import co.hadwen.aphrodite.auth.AphroditeAuthenticationPrincipal;
 import co.hadwen.aphrodite.platform.entity.PlatformEntity;
 import co.hadwen.aphrodite.platform.store.PlatformStore;
 import co.hadwen.aphrodite.platform.user.entity.UserEntity;
@@ -8,6 +9,8 @@ import co.hadwen.aphrodite.platform.user.dto.CreateUserRequest;
 import co.hadwen.aphrodite.platform.user.dto.GetUserResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +24,7 @@ import java.util.Optional;
 @AllArgsConstructor
 @RequestMapping("v1")
 @RestController
+@Validated
 public class UserController {
     private final PlatformStore platformStore;
     private final UserStore userStore;
@@ -28,6 +32,7 @@ public class UserController {
 
     @GetMapping("/platforms/{platformId}/users/{userId}")
     ResponseEntity<GetUserResponse> get(
+            @AuthenticationPrincipal AphroditeAuthenticationPrincipal principal,
             @PathVariable(name = "platformId") String platformId,
             @PathVariable(name = "userId") String userId) throws Exception {
         Optional<PlatformEntity> platformEntity = platformStore.get(platformId);
@@ -38,7 +43,7 @@ public class UserController {
         return userStore.get(userId, platformEntity.get())
                 .map(user -> ResponseEntity.ok(
                         new GetUserResponse(
-                                user.getUserId()
+                                user.getUsername()
                         )
                 )).orElse(ResponseEntity.notFound().build());
     }
@@ -52,6 +57,6 @@ public class UserController {
             return ResponseEntity.badRequest().body("No platform exists");
         }
         UserEntity user = userStore.create(platform.get(), createUserRequest.getUserId());
-        return ResponseEntity.created(new URI(String.format(CREATED_USER_URL, user.getUserId()))).build();
+        return ResponseEntity.created(new URI(String.format(CREATED_USER_URL, user.getUsername()))).build();
     }
 }

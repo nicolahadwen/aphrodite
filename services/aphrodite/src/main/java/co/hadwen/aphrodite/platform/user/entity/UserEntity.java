@@ -19,6 +19,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -29,19 +30,22 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(
         name = "platform_user",
-        schema = "balenciaga"
+        schema = "balenciaga",
+        indexes = {
+                @Index(name = "usernameIndex", columnList = "username")
+        }
 )
 @IdClass(UserEntityId.class)
 @Getter
 public class UserEntity implements Serializable {
-    public UserEntity(@NonNull PlatformEntity platform, @NonNull String userId) {
+    public UserEntity(@NonNull PlatformEntity platform, @NonNull String username) {
         this.platform = platform;
-        this.userId = userId;
+        this.username = username;
     }
 
-    @Column(name = "user_id", length = 36)
+    @Column(name = "username", length = 36)
     @Id
-    private String userId;
+    private String username;
 
     @Id
     @JoinColumn(name = "platform_id", referencedColumnName = "platform_id")
@@ -68,6 +72,6 @@ public class UserEntity implements Serializable {
         @NonNull
         private PlatformEntity platform;
         @NonNull
-        private String userId;
+        private String username;
     }
 }

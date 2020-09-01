@@ -1,2 +1,5 @@
 ./dev.env
-./scripts/push_image.sh
+/scripts/*
+/dev.env
+/src/main/resources/application.properties
+/src/main/resources/application-dev.properties
